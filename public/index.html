@@ -26,12 +26,32 @@
         font-size: 14px;
       }
       body {
-        height: 200vh;
+        background: #EFEFEF;
       }
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
+      }
+      .row {
+        display: flex;
+      }
+      .col-md-70 {
+        width: 70%;
+        padding-inline-end: 5px;
+      }
+      .col-md-30 {
+        padding-inline-start: 5px;
+        width: 30%
+      }
+      @media  (max-width: 768px) {
+        .row {
+          display: block;
+        }
+        .col-md-70, .col-md-30 { padding: 0; }
+        .col {
+          width: 100%
+        }
       }
       .flex {
         display: flex;

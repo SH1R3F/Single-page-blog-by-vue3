@@ -1,7 +1,7 @@
 <template>
   <div class="slider" :style="`background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${slides[slideIndex].img}')`">
     <div class="slider-card" @mouseover="pauseAutoSlide" @mouseleave="resumeAutoSlide">
-      <h2 class="card-title">{{ slides[slideIndex].id }} - {{ slides[slideIndex].title }}</h2>
+      <h2 class="card-title">{{ slides[slideIndex].title }}</h2>
       <a href="#" class="category">{{ slides[slideIndex].category }}</a>
       <p>{{ slides[slideIndex].details }}</p>
       <button>Read more</button>
