@@ -1,16 +1,18 @@
 <template>
-  <nav class="navbar flex">
-    <a href="#" class="navbar-logo"><span>V</span>ue<span>B</span>log</a>
-    <ul class="flex navigation-bar" :class="{'expanded': expanded}">
-      <li><a href="#">Psychology</a></li>
-      <li><a href="#">Love</a></li>
-      <li><a href="#">Relationships</a></li>
-      <li><a href="#">Social Media</a></li>
-      <li><a href="#">Dev Ops</a></li>
-      <button class="contact-us">Contact Us</button>
-    </ul>
-    <fa :icon="expanded ? 'times' : 'bars'" class="hidden toggle-mobile-nav" @click="toggleNavbar"/>
-</nav>
+  <nav class="navbar">
+    <div class="container flex">
+      <a href="#" class="navbar-logo"><span>V</span>ue<span>B</span>log</a>
+      <ul class="flex navigation-bar" :class="{'expanded': expanded}">
+        <li><a href="#">Psychology</a></li>
+        <li><a href="#">Love</a></li>
+        <li><a href="#">Relationships</a></li>
+        <li><a href="#">Social Media</a></li>
+        <li><a href="#">Dev Ops</a></li>
+        <button class="contact-us">Contact Us</button>
+      </ul>
+      <fa :icon="expanded ? 'times' : 'bars'" class="hidden toggle-mobile-nav" @click="toggleNavbar"/>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -32,6 +34,13 @@ export default {
 
 <style lang="scss" scoped>
   .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: #FFF;
+    box-shadow: var(--box-shadow);
+    padding: 10px 0;
+    font-size: 1.1rem;
     .navbar-logo {
       margin-inline-end: auto;
       font-size: 1.5rem;
@@ -99,17 +108,19 @@ export default {
   @media (max-width: 768px) {
     .navbar {
       .navigation-bar {
+        background: #FFF;
         position: absolute;
-        top: 100%; left: 0; right: 0;
+        top: 0; left: 0; right: 0;
         padding: 5px 20px;
         overflow: hidden;
         max-height: 0;
+        display: block;
         &.expanded {
           box-shadow: var(--box-shadow);
           max-height: 500px;
+          top: calc(100%);
           transition: max-height 0.6s ease-out;
         }
-        display: block;
         & > * { 
           display: block;
           margin: 5px 0;
