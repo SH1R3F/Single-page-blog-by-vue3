@@ -15,3 +15,6 @@ npm run serve
 ```
 npm run build
 ```
+
+## Preview
+!(./screenshot.png)
