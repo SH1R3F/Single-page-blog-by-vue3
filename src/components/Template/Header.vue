@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <Navbar />
+    <Navbar @contactus="$emit('contactus')" />
     <Slider />
   </div>
 </template>

@@ -106,6 +106,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
     
     .slider-card {
       background-color: rgba(255, 255, 255, 0.98);
@@ -187,6 +188,14 @@ export default {
         &:hover {
           color: orange;
           background-color: #FFF;
+        }
+      }
+      @media (max-width: 768px) {
+        & {
+          padding: 0;
+        }
+        svg {
+          background: rgba(255, 255, 255, 0.9);
         }
       }
     }

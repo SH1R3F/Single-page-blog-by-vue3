@@ -8,7 +8,7 @@
         <li><a href="#">Relationships</a></li>
         <li><a href="#">Social Media</a></li>
         <li><a href="#">Dev Ops</a></li>
-        <button class="contact-us">Contact Us</button>
+        <button class="contact-us" @click="$emit('contactus')">Contact Us</button>
       </ul>
       <fa :icon="expanded ? 'times' : 'bars'" class="hidden toggle-mobile-nav" @click="toggleNavbar"/>
     </div>
