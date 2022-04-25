@@ -1,4 +1,5 @@
-# vue3-blog
+# SINGLE PAGE BLOG BY VUE3
+Backend simulation by json-server
 
 ## Project setup
 ```
@@ -14,6 +15,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
