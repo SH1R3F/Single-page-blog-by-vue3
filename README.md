@@ -17,4 +17,4 @@ npm run build
 ```
 
 ## Preview
-!(./screenshot.png)
+![SINGLE PAGE BLOG](./screenshot.png)
