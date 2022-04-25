@@ -13,9 +13,8 @@
 
     <SidebarBlock title="Categories" class="categories">
       <ul>
-        <li v-for="i in 10">
-          <a href="#">Category {{ i }}</a>
-          <span>{{ i * 3 + 2 }}</span>
+        <li v-for="category in categories" :key="category.id" :class="{ active: category.id == $route.params.catid }">
+          <router-link :to="{ name: 'category', params: { catid: category.id } }">{{ category.title }}</router-link>
         </li>
       </ul>
     </SidebarBlock>
@@ -25,8 +24,28 @@
 <script>
   import SidebarBlock from './SidebarBlock.vue';
   export default {
+    data() {
+      return {
+        categories: []
+      }
+    },
     components: {
       SidebarBlock
+    },
+    mounted() {
+      /**
+       * I AM REPEATING MYSELF
+       * I'm fetching the categories twice, once here and another in the navbar page.
+       * I think the correct way should be done through vuex maybe? will think about it when i watch the vuex course.
+       */
+      // Fetch categories from backend
+      fetch ('http://localhost:3000/categories')
+      .then (res => res.json())
+      .then (data => {
+        this.categories = data;
+      })
+      .catch (err => alert("Couldn't fetch categories!"));
+
     }
   }
 </script>
@@ -77,7 +96,7 @@
         color: #000;
         display: flex;
         justify-content: space-between;
-        &:hover {
+        &:hover a, &.active a {
           color: orange;
         }
         a {

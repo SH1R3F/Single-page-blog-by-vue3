@@ -29,7 +29,8 @@
   export default {
     data() {
       return {
-        modal: true
+        modal: false,
+        posts: []
       }
     },
 
@@ -45,7 +46,7 @@
       BlogContent,
       SiteFooter,
       Modal
-    }
+    },
   }
 </script>
 

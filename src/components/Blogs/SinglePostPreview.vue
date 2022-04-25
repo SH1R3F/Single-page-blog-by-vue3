@@ -1,13 +1,23 @@
 <template>
   <div class="single-post row">
-    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+    <img :src="post.img" :alt="post.title">
     <div>
-      <h2>Why the smartest people embrace being wrong</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione excepturi reiciendis illo ad vero neque voluptas. Laborum similique consequuntur odio sit architecto corporis cumque doloremque, illo enim ad, quaerat maiores!</p>
-      <a href="#" class="category">Category</a>
+      <router-link :to="{ name: 'post', params: { postid: post.id } }">
+        <h2>{{ post.id }}. {{ post.title }}</h2>
+      </router-link>
+      <p>{{ post.brief }}</p>
+      <router-link :to="{ name: 'category', params: { catid: post.category.id } }" class="category">{{ post.category.title }}</router-link>
     </div>
   </div>
 </template>
+
+<script>
+
+  export default {
+    props: ['post']
+  }
+
+</script>
 
 <style lang="scss" scoped>
   .single-post {
@@ -22,6 +32,8 @@
       max-width: 35%;
       border-radius: 6px;
       box-shadow: var(--box-shadow);
+      aspect-ratio: 1/1;
+      object-fit: cover;
       @media (max-width: 768px) {
         & {
           max-width: 100%;

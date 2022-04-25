@@ -1,10 +1,10 @@
 <template>
-  <div class="slider" :style="`background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${slides[slideIndex].img}')`">
+  <div class="slider" :style="`background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${slides[slideIndex].img}')`" v-if="posts.length">
     <div class="slider-card" @mouseover="pauseAutoSlide" @mouseleave="resumeAutoSlide">
       <h2 class="card-title">{{ slides[slideIndex].title }}</h2>
-      <a href="#" class="category">{{ slides[slideIndex].category }}</a>
-      <p>{{ slides[slideIndex].details }}</p>
-      <button>Read more</button>
+      <router-link :to="{ name: 'category', params: { catid: slides[slideIndex].category.id } }" class="category">{{ slides[slideIndex].category.title }}</router-link>
+      <p>{{ slides[slideIndex].brief }}</p>
+      <router-link :to="{ name: 'post', params: { postid: slides[slideIndex].id } }" class="btn">Read more</router-link>
     </div>
     <div class="buttons">
       <fa icon="angle-left" @click="slide(slideIndex-1)"/>
@@ -22,44 +22,13 @@ export default {
   data() {
     return {
       slideIndex: 0,
-      slides: [
-        {
-          id: 1,
-          title: '4 Lies You Are Told About What Attracts Abusive Personalities',
-          category: 'Psychology',
-          details: 'and what actually attracts them — I have heard such nonsense about what attracts people with personality disorders on the internet. I am diagnosed',
-          img: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-        },
-        {
-          id: 2,
-          title: 'Five Costly Mistakes That ‘Nice People’ Make',
-          category: 'Relationships',
-          details: 'They all reek of inauthenticity. — “Be kind, but don’t be nice.” I forget where I heard this exact piece of advice, but it resonate with me ever since I heard it. There’s a difference between treating people well and being nice',
-          img: 'https://miro.medium.com/max/700/0*nV7ZiHQ8KpGJtxwv'
-        },
-        {
-          id: 3,
-          title: 'I’d Rather Re-Read These 10 Books Over and Over Again Instead of Starting New Ones',
-          category: 'Books',
-          details: 'Books that just might change your life, too — When I was lost, stuck, broke, and hopeless, I started diving into self-improvement and kept hearing the',
-          img: 'https://miro.medium.com/max/700/0*AxpsmniSy4colytE'
-        },
-        {
-          id: 4,
-          title: 'Why the smartest people embrace being wrong',
-          category: 'Mental Models',
-          details: 'A mental model used by Jeff Bezos, Adam Grant, Ben Franklin, Ralph Waldo Emerson, and other great thinkers. — What happens when our beliefs are challenged? As organizational psychologist Adam Grant explains',
-          img: 'https://miro.medium.com/max/1400/1*JiMtTrlA1JYqCWCLtc_F7g.png'
-        },
-        {
-          id: 5,
-          title: 'Why Growing Richer Requires You to Be Unselfish',
-          category: 'Money',
-          details: 'One question to keep asking yourself every day — Let’s say you make $120k in a year. You have a pretty good lifestyle. Your kids are well taken care of. Your bills are paid on time. You have your own business. Why should you',
-          img: 'https://miro.medium.com/max/1400/1*Mccx9p1K0Guq7aOOFFk5tQ.jpeg'
-        },
-      ],
-      autoSlide: null
+      autoSlide: null,
+      posts: []
+    }
+  },
+  computed: {
+    slides() {
+      return this.posts.slice(0, 7);
     }
   },
   methods: {
@@ -85,6 +54,20 @@ export default {
     },
   },
   mounted () {
+    /**
+     * I AM REPEATING MYSELF
+     * I'm fetching the posts twice, once in the slider and another in the showposts view page.
+     * I think the correct way should be done through vuex maybe? will think about it when i watch the vuex course.
+     */
+    // Fetch posts
+    fetch ('http://localhost:3000/posts')
+    .then (res => res.json())
+    .then (data => {
+      this.posts = data;
+    })
+    .catch (err => alert("Couldn't fetch posts!"));
+    
+    // Automate slider
     this.automateSlider();
   },
   unmounted() {
@@ -155,7 +138,8 @@ export default {
         font-size: 0.9rem;
         font-weight: bold;
       }
-      button {
+      .btn {
+        display: inline-block;
         margin-top: 20px;
         padding: 5px 10px;
         color: #555;

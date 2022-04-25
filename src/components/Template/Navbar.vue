@@ -1,13 +1,11 @@
 <template>
   <nav class="navbar">
     <div class="container flex">
-      <a href="#" class="navbar-logo"><span>V</span>ue<span>B</span>log</a>
+      <router-link :to="{ name: 'home' }" class="navbar-logo"><span>V</span>ue<span>B</span>log</router-link>
       <ul class="flex navigation-bar" :class="{'expanded': expanded}">
-        <li><a href="#">Psychology</a></li>
-        <li><a href="#">Love</a></li>
-        <li><a href="#">Relationships</a></li>
-        <li><a href="#">Social Media</a></li>
-        <li><a href="#">Dev Ops</a></li>
+        <li v-for="category in categories" :key="category.id" :class="{ active: category.id == $route.params.catid }">
+          <router-link :to="{ name: 'category', params: { catid: category.id } }">{{ category.title }}</router-link>
+        </li>
         <button class="contact-us" @click="$emit('contactus')">Contact Us</button>
       </ul>
       <fa :icon="expanded ? 'times' : 'bars'" class="hidden toggle-mobile-nav" @click="toggleNavbar"/>
@@ -20,13 +18,28 @@
 export default {
   data() {
     return {
-      expanded: false
+      expanded: false,
+      categories: []
     }
   },
   methods: {
     toggleNavbar() {
       this.expanded = !this.expanded;
     }
+  },
+  mounted() {
+    /**
+     * I AM REPEATING MYSELF
+     * I'm fetching the categories twice, once here and another in the sidebar page.
+     * I think the correct way should be done through vuex maybe? will think about it when i watch the vuex course.
+     */
+    // Fetch categories from backend
+    fetch ('http://localhost:3000/categories')
+    .then (res => res.json())
+    .then (data => {
+      this.categories = data;
+    })
+    .catch (err => alert("Couldn't fetch categories!"));
   }
 }
 
@@ -65,7 +78,7 @@ export default {
         background: orange;
       }
       a { color: #333; }
-      &:hover {
+      &:hover, &.active {
         a { 
           color: orange;
           transition: color 0.4s;

@@ -9,6 +9,7 @@
 import Navbar from './Navbar.vue'
 import Slider from './Slider.vue'
 export default {
+
   components: {
     Navbar,
     Slider
